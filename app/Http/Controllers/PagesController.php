@@ -275,4 +275,9 @@ class PagesController extends Controller
         //return response($response);
         return response()->json($response);
     }
+
+    //Function to return all devices
+    public function getDevices(){
+        return view('home');
+    }
 }

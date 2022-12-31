@@ -36,5 +36,6 @@ Auth::routes();
 Route::get('/add_device', [App\Http\Controllers\PagesController::class, 'add_device'])->name('add_device');
 Route::get('pages.getDevice', [App\Http\Controllers\PagesController::class, 'getDeviceState'])->name("pages.getDevice");
 Route::post('/add_device/', [App\Http\Controllers\PagesController::class, 'store'])->name("add.store");
+Route::get('/home', [App\Http\Controllers\PagesController::class, 'getDevices']);
 
 //Route::

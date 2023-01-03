@@ -28,14 +28,19 @@ Route::get('/add_device', function () {
 
 Auth::routes();
 
+//Routes for Homecontroler
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-//Route::get('/service', [PagesController::class, 'service']);
+//Routes for Pages Controller
 Route::get('/add_device', [App\Http\Controllers\PagesController::class, 'add_device'])->name('add_device');
 Route::get('pages.getDevice', [App\Http\Controllers\PagesController::class, 'getDeviceState'])->name("pages.getDevice");
 Route::post('/add_device/', [App\Http\Controllers\PagesController::class, 'store'])->name("add.store");
-Route::get('/home', [App\Http\Controllers\PagesController::class, 'getDevices']);
+Route::get('/home', [App\Http\Controllers\PagesController::class, 'DeviceConfig']);
+Route::resource("posts", PagesController::class);
 
-//Route::
+//Routes to DeviceConfig controller
+Route::get('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'index'])->name('deviceConfig');
+Route::get('/editDeviceConfig', [App\Http\Controllers\DeviceConfig::class, 'edit'])->name('edit');
+Route::post('', [App\Http\Controllers\DeviceConfig::class, 'update'])->name('config.update');
+
+

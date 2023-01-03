@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
         <title>{{ config('app.name', 'Laravel') }}</title>
-    
+        <link href="/images/logo2.jpeg" rel="icon">
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -31,11 +31,22 @@
                 {{-- </header> --}}
                 
                 <a class="navbar-brand" href="{{ url('/') }}" style="color:white">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}<img src="images/veritasIoT.png" class="img" width="100" height="100"><span>Veritas IoT Cloud Platform</span>
+                    {{-- {{ config('app.name', 'Laravel') }} --}}<img src="images/veritasIoT.png" class="img" width="100" height="100"><span>Veritas IoT Cloud Platform</span></br>
+                    {{-- <span style="font-size: 12px">Divine Ayambem IoT Project</span> --}}
                 </a>
+
+                <a class="navbar-brand" href="{{ url('/') }}" style="color:white">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}<span></span>
+                    {{-- <span style="font-size: 12px">Divine Ayambem IoT Project</span> --}}
+                </a>
+
+                
+
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="container">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -59,7 +70,11 @@
                                 </li>
                             @endif
                         @else
-                            
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home" style="color:white; font-weight:bolder">{{ __('Dashboard') }}</a>
+                        </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/add_device" style="color:white; font-weight:bolder">{{ __('Add Device') }}</a>
                             </li>
@@ -68,8 +83,16 @@
                                 <a class="nav-link" href="#" style="color:white; font-weight:bolder">{{ __('Analytics') }}</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" style="color:white; font-weight:bolder">
+                                        {{ __('Logout') }}
+                                    </a>
+                            </li>
+
                             
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" 
                                 aria-haspopup="true" aria-expanded="false" v-pre style="color:white">
                                     {{ Auth::user()->name }}
@@ -81,7 +104,7 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
+                                    </a> --}}
 
                                     
 
@@ -97,6 +120,7 @@
                         @endguest
                     </ul>
                 </div>
+                
             </div>
         </nav>
 

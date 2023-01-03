@@ -148,6 +148,7 @@ class PagesController extends Controller
                      $device->veryHigh_state            =   $veryHighState; 
                      $device->user_id                   =   auth()->user()->id; 
                      $device->user_email                =   auth()->user()->email; 
+                     $device->device_image          =  $filenameToStore;
 
            //If the device is registered
            if($device->save()){
@@ -191,9 +192,13 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+
+     //Edit the Device Config
+    public function edit(Request $request)
     {
-        //
+        $id = $request->id;
+        $device = Devices::find($id);
+        return view('pages.deviceConfig')->with('device', $device);
     }
 
     /**
@@ -276,8 +281,10 @@ class PagesController extends Controller
         return response()->json($response);
     }
 
-    //Function to return all devices
-    public function getDevices(){
-        return view('home');
-    }
+    public function DeviceConfig(){
+            $userid= auth()->user()->id;
+            $devices = Devices::where('user_id', $userid)->get();
+            return view('home')->with('devices', $devices);
+        }
+    
 }

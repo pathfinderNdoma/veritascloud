@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AuthorizationCode;
 use Illuminate\Http\Request;
 use App\Models\Devices;
+use App\Http\Controllers\IncludesController;
 
 class PagesController extends Controller
 {
@@ -15,8 +16,14 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
+        return view('index');
     }
+
+    // public function home()
+    // {
+    //     return view('home');
+    // }
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,13 +50,14 @@ class PagesController extends Controller
             'device_image'=>'image|max:1999'
             
         ]);
+        /* ********************Checking if the authorization code is correct***************** */
         $authorization_codes = $request->input('authorization_code');
          $authCodes = AuthorizationCode::where('authorization_code', $authorization_codes)->pluck('authorization_code');
          $count = count($authCodes);
          
         
 
-         
+         //IF the authorization code is valid
          if($count==1){
 
             
@@ -57,12 +65,27 @@ class PagesController extends Controller
             //Checking if the device is a two state device
         if($request->input('device_type')=='two_state'){
 
-            //Handle the file upload
-            $filenameExtension = $request->file('device_image');
-            $extension = $request->file('device_image')->getClientOriginalExtension();
-            $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
-            //Upload the image
-            $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
+            // //Handle the file upload
+            // $filenameExtension = $request->file('device_image');
+            // $extension = $request->file('device_image')->getClientOriginalExtension();
+            // $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
+            // //Upload the image
+            // $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
+            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
+
+            // ************** Calling the Device ID Function
+            $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);
+
+            // ******************Checking if the device ID Exists in the database
+            $id_exists = Devices::where('deviceID', $deviceID)->pluck('deviceID');
+            if(count($id_exists)==0){
+                $deviceID = $deviceID;
+            }
+
+            else{
+                $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);   
+            }// ******************Checking if the device ID Exists in the database
+         
 
             $device = new Devices;
 
@@ -77,7 +100,8 @@ class PagesController extends Controller
             $device->veryHigh_state      =   'inactive'; 
             $device->user_id             =    auth()->user()->id; 
             $device->user_email          =    auth()->user()->email; 
-            $device->device_image          =  $filenameToStore;
+            $device->device_image        =    $filenameToStore;
+            $device->deviceID            =    $deviceID;
 
             //If the device is registered/save
            if($device->save()){
@@ -89,11 +113,11 @@ class PagesController extends Controller
            }
            else{
             return redirect('add_device')->with('error', 'Device Not Registered Successfully, kindly try again');
-           }
-           //If the device is registered ends 
+           }//If the device is registered ends 
+           
 
-        }
-        //Checking if the device is a two state device ends
+        }//Checking if the device is a two state device ENDS
+        
 
         //If the device type is a multi state device
         elseif($request->input('device_type')=='multi_state'){
@@ -163,8 +187,8 @@ class PagesController extends Controller
         //IF the device is a multi state device ends
 
                    
-//End of if the authorization code is wrong.
-         }
+
+         }//End of if the authorization code is wrong.
 
        
          //If the authorization code is not correct
@@ -229,6 +253,11 @@ class PagesController extends Controller
         return view('pages.add_device');
     }
 
+
+
+
+
+
     //Return the device state
     public function getDeviceState(Request $request)
     {
@@ -281,9 +310,10 @@ class PagesController extends Controller
         return response()->json($response);
     }
 
-    public function DeviceConfig(){
+    public function dashboard(){
             $userid= auth()->user()->id;
             $devices = Devices::where('user_id', $userid)->get();
+            //return $devices;
             return view('home')->with('devices', $devices);
         }
     

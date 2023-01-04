@@ -16,7 +16,9 @@ class DeviceConfig extends Controller
     public function index(Request $request)
     {
         $id = $request->id;
-        $device = Devices::find($id);
+       
+        $device = Devices::where('deviceID', $id)->get();
+       // return $device;
         return view('pages.deviceConfig')->with('device', $device);
     }
 

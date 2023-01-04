@@ -59,20 +59,25 @@
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('website')}}" style="color:white; font-weight:bolder">{{ __('Home') }}</a>
+                            </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}" style="color:#198754; font-weight:bolder">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}" style="color:white; font-weight:bolder">{{ __('Login') }}</a>
                                 </li>
+                                
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}" style="color:#198754; font-weight:bolder">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}" style="color:white; font-weight:bolder">{{ __('Register') }}</a>
                                 </li>
+                                
                             @endif
                         @else
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="/home" style="color:white; font-weight:bolder">{{ __('Dashboard') }}</a>
+                            <a class="nav-link" href="{{route('dashboard')}}" style="color:white; font-weight:bolder">{{ __('Dashboard') }}</a>
                         </li>
 
                             <li class="nav-item">

@@ -37,35 +37,58 @@
                 </div>
     <!--****************************Checking if there is no devices registered ends***********************  -->     
 
+@endif
      <!--****************************Checking if there is only one device starts***********************  -->
-    @elseif(count($devices)==1)
+    @if(count($devices)==1)
 
               <!-- Checking if the device type is two state device starts -->
-                            @if ($devices->device_type=='two_state')
-                            <div class="col-xs-4">
-                              <div class="card h-100" style="border-color:#198754">
-                                <img src="/storage/device_images/{{$device->device_image}}" class="card-img-top" alt="..." height="200" width="250">
-                                <hr style="color:#198754; border-color:#198754; font-weight:bolder">
+              @foreach ($devices as $device)
+                  
+              
+                            @if ($device->device_type=='two_state')
+                            <div class="container">
+                            <div class="row">
+                              
+
+                              <div class="col-md-2 col-xs-12 col-lg-2"></div>
+              
+                              <div class="col-md-8 col-xs-12 col-lg-8">
+                                  <div class="card" style="border-color:#198754">
+                                    
+                                    <div class="card-body">
+                                      <img src="/storage/device_images/{{$device->device_image}}" class="h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
+                                      <br/>
+                                      <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                                 <div class="card-body text-center">
                                   <p>Device Name:{{$device->device_name}}</p>
-                                  <p>Device Status: OFF</p>
+                                  <p>Device Status:Off</p>
                                   
-                                  <div class="row">
+                                  <div class="row vstack gap-2 col-md-12 mx-auto">
                                     <div class="col-12">
                                       <input type="button" id="switch" value="Turn Device On" class="btn btn-success form-control">
                                     
                                     </div>
-                        
+              
                                     <div class="col-12">
-                                      <a id="switch" href="{{route('editdeviceConfig', ['id'=>$device->id])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                      <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
                                     </div>
-                        
+              
                                   </div>
                               
                                 </div>
+                                      {{-- <p class="card-text">You do not have any device added yet</p> --}}
+                                      
+                                      
+                                    </div>
+                                  </div>
+                                
+                              <div class="col-md-2 col-xs-2 col-lg-2"></div>
                               </div>
                             </div>
-          <!-- Checking if the device type is two state device ends -->
+
+                              <!-- Checking if the device type is two state device ends -->
+          
+              
 
           <!-- If the device type is multi state starts-->
               @else
@@ -99,14 +122,15 @@
                       
                         </div>
                       </div> 
-                @endif
+            @endif
+             @endforeach
      <!--****************************Checking if there is only one device ends***********************  -->
-
-
+ 
+@endif
     
         
   <!--****************************Checking if there is  more than one device***********************  -->
-    @elseif(count($devices)>1)
+    @if(count($devices)>1)
 
     
     {{-- Looping through the array --}}

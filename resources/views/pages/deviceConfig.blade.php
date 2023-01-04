@@ -42,7 +42,7 @@
 					</div><p></p>
 					<div class="col-lg-6 col-md-6 col-xs-12">
 						<label style="color:#198754; font-weight:bolder">Device ID</label>
-						<div class="p-3 border bg-light">DFHJTT55</div>					
+						<div class="p-3 border bg-light">{{$device->deviceID}}</div>					
 						  </div>
 
 					</div>
@@ -105,16 +105,14 @@
 					@csrf
 			<div class="row">
 
-				<div class="col-4 text-center">
-					
-				</div>
+				<div class="col-lg-2 col-md-2 col-xs-12 text-center"></div>
 
-				<div class="col-lg-4 col-md-4 col-xs-12 text-center">
-					<a id="switch" href="{{route('edit', ['id'=>$device->id])}}" class="btn btn-success form-control">Device Config</a>
+				<div class="col-lg-4 col-md-4 col-xs-6 text-center">
+					<a id="switch" href="{{route('edit', ['id'=>$device->deviceID])}}" class="btn btn-success form-control">Edit Device Config</a>
 				</div>
-
-				<div class="col-4 text-center">
-					
+			</br></br>
+				<div class="col-lg-4 col-md-4 col-xs-6 text-center">
+					<a id="switch" href="{{route('edit', ['id'=>$device->id])}}" class="btn btn-danger form-control">Delete Device</a>
 				</div>
 
 			</div>

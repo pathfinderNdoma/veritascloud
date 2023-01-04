@@ -25,7 +25,7 @@
 
                     <div class="form-group">
                         <label style="color:#198754; font-weight:bolder; font-size:16px">Device ID</label>
-						<input type="text" name="device_id" class="form-control" Value="DFHJTT55" readonly 
+						<input type="text" name="device_id" class="form-control" Value="{{$device->deviceID}}" readonly 
 						style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
 					</div>
 					<br/>

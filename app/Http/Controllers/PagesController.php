@@ -65,16 +65,15 @@ class PagesController extends Controller
             //Checking if the device is a two state device
         if($request->input('device_type')=='two_state'){
 
-            // //Handle the file upload
-            // $filenameExtension = $request->file('device_image');
-            // $extension = $request->file('device_image')->getClientOriginalExtension();
-            // $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
-            // //Upload the image
-            // $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
-            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
+           
 
             // ************** Calling the Device ID Function
             $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);
+            // return $deviceID;
+            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request, $deviceID);
+            
+
+            
 
             // ******************Checking if the device ID Exists in the database
             $id_exists = Devices::where('deviceID', $deviceID)->pluck('deviceID');
@@ -119,7 +118,7 @@ class PagesController extends Controller
         }//Checking if the device is a two state device ENDS
         
 
-        //If the device type is a multi state device
+        //******************************IF THE DEVICE IS A MULTI STATE DEVICE***********************
         elseif($request->input('device_type')=='multi_state'){
      //Checking the selected states for the device
                     
@@ -154,12 +153,11 @@ class PagesController extends Controller
 
                 $device = new Devices;
 
-                    //Handle the file upload
-                    $filenameExtension = $request->file('device_image');
-                    $extension = pathinfo($filenameExtension, PATHINFO_FILENAME);
-                    $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
-                    //Upload the image
-
+                    // ************** Calling the Device ID Function
+                        $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);
+                        // return $deviceID;
+                        $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request, $deviceID);
+            
                      $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
                      $device->authorization_code        =  $request->input('authorization_code');
                      $device->device_name               =  $request->input('device_name');
@@ -172,7 +170,8 @@ class PagesController extends Controller
                      $device->veryHigh_state            =   $veryHighState; 
                      $device->user_id                   =   auth()->user()->id; 
                      $device->user_email                =   auth()->user()->email; 
-                     $device->device_image          =  $filenameToStore;
+                     $device->device_image              =  $filenameToStore;
+                     $device->deviceID                 =   $deviceID;
 
            //If the device is registered
            if($device->save()){

@@ -9,7 +9,7 @@
 
 	<div class="col-lg-8 col-xs-12">
 		<div class="container">
-			<form name="form" method="POST" action="{{route('add.store')}}" enctype="multipart/form-data">
+			
 
 			<div class="card bg-light" style="border-color: #198754">
 				<h5 class="card-header text-center btn-success" style="background-color:#198754; color:white">Device Config</h5>
@@ -18,6 +18,7 @@
 
 				<div class="row form-group">
 					
+
 
 					<div class="col-lg-6 col-md-6 col-xs-12">
 						<label class="" style="color:#198754; font-weight:bolder">Device Name</label>
@@ -102,7 +103,8 @@
 
 
 				
-					@csrf
+					
+							
 			<div class="row">
 
 				<div class="col-lg-2 col-md-2 col-xs-12 text-center"></div>
@@ -111,13 +113,18 @@
 					<a id="switch" href="{{route('edit', ['id'=>$device->deviceID])}}" class="btn btn-success form-control">Edit Device Config</a>
 				</div>
 			</br></br>
-				<div class="col-lg-4 col-md-4 col-xs-6 text-center">
-					<a id="switch" href="{{route('edit', ['id'=>$device->id])}}" class="btn btn-danger form-control">Delete Device</a>
-				</div>
 
+				
+			<div class="col-md-4 col-xs-4 col-lg-4">
+				{!! Form::open(['action'=> ['App\Http\Controllers\DeviceConfig@destroy', $device->deviceID], 'method' => 'POST', 'class'=>'pulll-right'])!!}
+
+				{{Form::hidden('_method', 'DELETE')}}
+				{{Form::submit('Delete', ['class'=>'btn btn-danger form-control'])}}
+			  {!! Form::close()!!}
 			</div>
 						
-						
+			@csrf
+					
 				</div>
 			  </div>
 		</div>
@@ -125,8 +132,7 @@
 
 	<div class="col-lg-2 col-xs-12">
 	</div>
-@csrf
-</form>
+
  
 </div>
 	

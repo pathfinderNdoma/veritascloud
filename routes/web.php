@@ -42,9 +42,11 @@ Route::resource("posts", PagesController::class);
 Route::get('/index', [App\Http\Controllers\WebsiteController::class, 'index'])->name('website');
 
 //Routes to DeviceConfig controller
+Route::resource("pages", DeviceConfig::class);
 Route::get('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'index'])->name('deviceConfig');
 Route::get('/editDeviceConfig', [App\Http\Controllers\DeviceConfig::class, 'edit'])->name('edit');
 Route::post('', [App\Http\Controllers\DeviceConfig::class, 'update'])->name('config.update');
+Route::post('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'destroy'])->name('delete');
 
 
 

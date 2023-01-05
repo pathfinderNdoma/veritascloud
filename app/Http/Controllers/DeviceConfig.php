@@ -17,8 +17,8 @@ class DeviceConfig extends Controller
     {
         $id = $request->id;
        
-        $device = Devices::where('deviceID', $id)->get();
-       // return $device;
+        $device = Devices::where('deviceID', $id)->first();
+       //return $device;
         return view('pages.deviceConfig')->with('device', $device);
     }
 
@@ -63,7 +63,8 @@ class DeviceConfig extends Controller
     public function edit(Request $request)
     {
         $id = $request->id;
-        $device = Devices::find($id);
+        $device = Devices::where('deviceID', $id)->get();
+        //return $device;
         return view('pages.editDeviceConfig')->with('device', $device);
     }
 
@@ -83,10 +84,10 @@ class DeviceConfig extends Controller
                       
         ]);
         $id = $request->id;
-        $updateDevice = Devices::find($id);
+        $updateDevice =  Devices::where('deviceID', $id)->first();
 
         
-  //***********************Else if it is a two state DEVICE **************************************
+  //***********************IF IT IS  A MULTI STATE DEVICE**************************************
      if($request->input('device_type')=='multi_state'){
             //Checking the selected states for the device
                            
@@ -119,18 +120,15 @@ class DeviceConfig extends Controller
                                $veryHighState = 'inactive';
                            }
             
-    //Handle the file upload
-    $filenameExtension = $request->file('device_image');
-    if($filenameExtension!=null){
-        return $filenameExtension;
-        $extension = $request->file('device_image')->getClientOriginalExtension();
-        $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
-        //Upload the image
-        $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
-    }
-    else{
-        $filenameToStore = $updateDevice->device_image;
-    }
+            //Handle the file upload
+            $filenameExtension = $request->file('device_image');
+            if($filenameExtension){
+                //Calling the image upload function
+                $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
+            }
+            else{
+                $filenameToStore = $updateDevice->device_image;
+            }
 
           
           $updateDevice->device_name               =  $request->input('device_name');
@@ -140,11 +138,11 @@ class DeviceConfig extends Controller
           $updateDevice->high_state                =   $highState; 
           $updateDevice->veryHigh_state            =   $veryHighState; 
           $updateDevice->device_image          =  $filenameToStore;
-          $devices = Devices::where('user_id', $updateDevice->user_id)->get();
+          
 
           if($updateDevice->save()){
             $id = $request->id;
-            $device = Devices::find($id);
+            $device = Devices::where('deviceID', $id)->first();
             return view('pages.deviceConfig')->with('device', $device);
           }
           else{
@@ -158,27 +156,26 @@ else{
         //Handle the file upload
         $filenameExtension = $request->file('device_image');
         if($filenameExtension){
-            $extension = $request->file('device_image')->getClientOriginalExtension();
-            $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
-            //Upload the image
-            $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
+            //Calling the image upload function
+            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
         }
         else{
             $filenameToStore = $updateDevice->device_image;
         }
 
 
-//Updat the database
-$updateDevice->device_name         =    $request->input('device_name');
-$updateDevice->device_type         =    $request->input('device_type');
-$updateDevice->on_state            =    'active'; 
-$updateDevice->off_state          =    'active';  
-$updateDevice->device_image        =    $filenameToStore;
+        //Updat the database
+        $updateDevice->device_name         =    $request->input('device_name');
+        $updateDevice->device_type         =    $request->input('device_type');
+        $updateDevice->on_state            =    'active'; 
+        $updateDevice->off_state          =    'active';  
+        $updateDevice->device_image        =    $filenameToStore;
 
 //If the device is registered/save
 if($updateDevice->save()){
             $id = $request->id;
-            $device = Devices::find($id);
+            $device = Devices::where('deviceID', $id)->first();
+            // return $device;
             return view('pages.deviceConfig')->with('device', $device);
   }
   else{
@@ -189,21 +186,24 @@ if($updateDevice->save()){
 }    
     }
  //***********************End of Update Method ************************************** 
+
+
+
+ //******************DELETE THE DEVICE METHOD */
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-
-    //Function to return all devices
-    // public function DeviceConfig(){
-    //     $userid= auth()->user()->id;
-    //     $devices = Devices::where('user_id', $userid)->get();
-    //     return view('home')->with('devices', $devices);
-    // }
+   public function destroy($deviceID){
+    $del = Devices::find($deviceID);
+    // if(auth()->user()->id !==$post->user_id){
+    //     return redirect('/posts')->with('error', 'Unauthorized Page'); 
+    //   }
+    $del->delete();
+    return redirect('/deviceConfig')->with('success', 'Post Deleted');
+    //->with('success', 'Device configuration update failed')
+    //->with('device', $device);
+   }
 }

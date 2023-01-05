@@ -165,7 +165,7 @@
                               </div>
         
                               <div class="col-12">
-                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->id])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
                               </div>
         
                             </div>
@@ -200,7 +200,7 @@
                               </div>
 
                               <div class="col-12">
-                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->id])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
                               </div>
                             
                             

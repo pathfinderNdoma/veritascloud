@@ -9,11 +9,15 @@ class IncludesController extends Controller
 {
 
     //Function to upload Device Imagess
-    public function deviceImage(Request $request){
+    public function deviceImage(Request $request, $id){
         //Handle the file upload
+        $deviceID= $id;
+        // $devices =  $device = Devices::where('deviceID', $id)->first();
+        // $deviceID =$devices->deviceID;
+       // return $deviceID;
         $filenameExtension = $request->file('device_image');
         $extension = $request->file('device_image')->getClientOriginalExtension();
-        $filenameToStore = $request->input('device_name').'_'.time().'.'.$extension;
+        $filenameToStore = $request->input('device_name').'_'.$deviceID.'.'.$extension;
         //Upload the image
         $path = $request->file('device_image')->storeAs('public/device_images', $filenameToStore); 
         return $filenameToStore;

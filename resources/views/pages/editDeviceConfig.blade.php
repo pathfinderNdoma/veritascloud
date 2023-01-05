@@ -7,14 +7,17 @@
 	<div class="col-lg-2 col-xs-12">
 	</div>
 
+	@foreach ($device as $device)
 	<div class="col-lg-8 col-xs-12">
 		<div class="container">
-			<form name="form" method="POST" action="{{route('config.update', ['id'=>$device->id])}}" enctype="multipart/form-data">
-
+			<form name="form" method="POST" action="{{route('config.update', ['id'=>$device->deviceID])}}" enctype="multipart/form-data">
+		
 			<div class="card bg-light" style="border-color: #198754">
 				<h5 class="card-header text-center btn-success" style="background-color:#198754; color:white">Register IoT Device</h5>
 				<div class="card-body">
 
+
+	
 
 					<div class="form-group">
                         <label style="color:#198754; font-weight:bolder; font-size:16px">Authorization Code</label>
@@ -60,6 +63,7 @@
 					@csrf
 				</div>
 				</br>
+		@endforeach
 	
 	<input type="submit" value="Save Device Config" name="submit" class="btn btn-outline-success">
 						
@@ -70,6 +74,8 @@
 
 	<div class="col-lg-2 col-xs-12">
 	</div>
+		
+	
 @csrf
 </form>
  

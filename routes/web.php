@@ -48,5 +48,7 @@ Route::get('/editDeviceConfig', [App\Http\Controllers\DeviceConfig::class, 'edit
 Route::post('', [App\Http\Controllers\DeviceConfig::class, 'update'])->name('config.update');
 Route::post('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'destroy'])->name('delete');
 
+Route::resource("pages", DeviceconfigController::class);
+
 
 

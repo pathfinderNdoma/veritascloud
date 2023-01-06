@@ -116,14 +116,15 @@
 
 				
 			<div class="col-md-4 col-xs-4 col-lg-4">
-				{!! Form::open(['action'=> ['App\Http\Controllers\DeviceConfig@destroy', $device->deviceID], 'method' => 'POST', 'class'=>'pulll-right'])!!}
-
+				{!! Form::open(['route'=>['delete', 'id'=>$device->deviceID],    'method' => 'POST', 'class'=>'pulll-right'])!!}
+				@csrf
 				{{Form::hidden('_method', 'DELETE')}}
+				
 				{{Form::submit('Delete', ['class'=>'btn btn-danger form-control'])}}
 			  {!! Form::close()!!}
 			</div>
 						
-			@csrf
+			
 					
 				</div>
 			  </div>

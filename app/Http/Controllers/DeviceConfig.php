@@ -196,13 +196,15 @@ if($updateDevice->save()){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function destroy($deviceID){
-    $del = Devices::find($deviceID);
+   public function destroy(Request $request){
+    $id = $request->id;
+    $device = Devices::where('deviceID', $id)->first();
+    //return $device;
     // if(auth()->user()->id !==$post->user_id){
     //     return redirect('/posts')->with('error', 'Unauthorized Page'); 
     //   }
-    $del->delete();
-    return redirect('/deviceConfig')->with('success', 'Post Deleted');
+    $device->delete();
+    return redirect('home')->with('success', 'Device Deleted');
     //->with('success', 'Device configuration update failed')
     //->with('device', $device);
    }

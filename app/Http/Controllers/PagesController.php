@@ -262,22 +262,7 @@ class PagesController extends Controller
     {
         $state =$request->id;
         
-        //$state = 2;
-            if($state=='1'){
-                $html = '<div class="col-md-5 col-xs-4 col-lg-5" >
-                <select name="device_states" id="device_states" class="form-select" 
-                style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
-                <option value="">Select Device State</option>
-                <option value="on">On</option>
-                <option value="off">Off</option>
-                </select>
-                </div>	
-                <br/></br>
-                <div class="col-md-6 col-xs-6 col-lg-6">
-					<input type="button" value="Add Device State" name="add" id="add" class="btn btn-success">
-					</div></br>';
-            }
-            else if($state=='multi_state'){
+            if($state=='multi_state'){
                 
                 $html = '
                 <div class="col-md-5 col-xs-12 col-lg-5">
@@ -309,6 +294,8 @@ class PagesController extends Controller
         return response()->json($response);
     }
 
+
+//Dashboard method
     public function dashboard(){
             $userid= auth()->user()->id;
             $devices = Devices::where('user_id', $userid)->get();

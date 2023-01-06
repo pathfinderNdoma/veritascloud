@@ -22,23 +22,27 @@ $(document).ready(function(e) {
 
                 '</div>';
             //$(".disp_state").remove();
-            $("#disp_state").html(info);
+            $("#two_states").removeClass('d-none ');
+            $("#two_states").html(info);
+            $("#multi_states").addClass('d-none ');
             
         }
         else if(device_type=='multi_state'){
+            $("#two_states").addClass('d-none ');
+            $("#multi_states").removeClass('d-none ');
+            $("#devStatesContainer").append('<div class="devStates" id="devStates"></div>');
 
-    const url = "{{route('pages.getDevice')}}";
-     //alert(url)
-    $.ajax({
-   url: url,
-   type: 'GET',
-   data:{id:device_type},
-   cache:false,
-   success: function(response){
-      /* If the html is rendered */
-    if($("#disp_state").html(response.data)){
 
         $("#add").click(function (e) { 
+
+            //Checking if the devstates div exists
+            if($("#devStates").length){
+                
+            }
+            else{
+                $("#devStatesContainer").append('<div class="devStates" id="devStates"></div>');
+            }
+           // $("#devStatesContainer").append('<div class="devStates" id="devStates"></div>');
             e.preventDefault();
             let states = $("#device_states").val();
 
@@ -52,12 +56,14 @@ $(document).ready(function(e) {
                             '</div>'+
                             '</br><br/>'
                 
-                $("#disp_state").append(info);
+                $("#devStates").append(info);
+                
 
     //If the clear section button is clicked, reset the device states
                 $("#clear").click(function (e) { 
                     e.preventDefault();
-                    $(".addedStates").remove();
+                    $(".devStates").remove();
+                    
                 });
     //If the clear section button is clicked, reset the device states
     
@@ -68,12 +74,9 @@ $(document).ready(function(e) {
             /* Checking if the state selected is invalid */
             
         });
-    }
+    
 
-    /* End of If the html is rendered */
-
-   }
- });
+  
 
 
         }

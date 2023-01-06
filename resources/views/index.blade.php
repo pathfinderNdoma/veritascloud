@@ -69,7 +69,9 @@
       <h1>Welcome to Veritas IoT Cloud Platform</h1>
      <h2>Test your IoT Projects, monitor and control your devices and appliances on the internet</h2>
       <img class="animated" src="website_resources/assets/img/image5.jpg" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100" width="600" height="400">
-      <a href="#get-started" class="btn-get-started scrollto">Get Started</a>
+      {{-- <a href="#get-started" class="btn-get-started scrollto">Get Started</a> --}}
+      <a href="{{ route('register') }}" class="btn-get-started scrollto">Get Started</a>
+      
       <!-- <div class="btns">
         <a href="#"><i class="fa fa-apple fa-3x"></i> App Store</a>
         <a href="#"><i class="fa fa-play fa-3x"></i> Google Play</a>
@@ -219,14 +221,14 @@
 
         <div class="screens-slider swiper">
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/1.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/2.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/3.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/4.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/5.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/6.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/7.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="website_resources/assets/img/screen/8.jpg" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/1.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/2.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/3.png" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/fan.png" class="img-fluid" alt=""></div>
+            {{-- <div class="swiper-slide"><img src="website_resources/assets/img/screen/5.png" class="img-fluid" alt=""></div> --}}
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/6.png" class="img-fluid" alt=""></div>
+            {{-- <div class="swiper-slide"><img src="website_resources/assets/img/screen/bulb.png" class="img-fluid" alt=""></div> --}}
+            <div class="swiper-slide"><img src="website_resources/assets/img/screen/8.png" class="img-fluid" alt=""></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -459,7 +461,7 @@
 
             <ul class="list-unstyled">
               <li><a href="{{ route('register') }}">Registration</a></li>
-              <li><a href="#">Login</a></li>
+              <li><a href="{{ route('login') }}">Login</a></li>
               <li><a href="#">Privacy Policy</a></li>
             </ul>
 

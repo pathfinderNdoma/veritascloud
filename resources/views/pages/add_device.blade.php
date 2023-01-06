@@ -39,9 +39,46 @@
 	 			</div>
 				</br>
 
-				<div class="row disp_state" id="disp_state">
 				
+				
+	{{-- ********************* IN THIS DIV, THE DEVICE STATES FOR TWO_STATE DEVICES WILL BE DISPLAYED FOR SELECTION************* --}}
+		<div class="two_states" id="two_states"></div>			
+	{{-- ******************** IN THIS DIV, THE DEVICE STATES FOR TWO_STATE DEVICES WILL BE DISPLAYED FOR SELECTION************** --}}
+
+
+{{-- ******************************* IN THIS DIV, THE DEVICE STATES FOR MULTI_STATE DEVICES WILL BE DISPLAYED FOR SELECTION**************** --}}
+				<div class="row multi_states d-none" id="multi_states">
+						<div class="col-md-5 col-xs-12 col-lg-5">
+						<select name="device_states" id="device_states" class="form-select" 
+						style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
+						<option value="">Select Device State</option>
+						<option value="low">Low</option>
+						<option value="medium">Medium</option>
+						<option value="high">High</option>
+						<option value="veryHigh">Very High</option>
+						</select>
+						</div>	
+						<br/></br></br>
+
+					
+						<div class="col-md-3 col-xs-12 col-lg-3">
+							<input type="button" value="Add Device State" name="add" id="add" class="btn btn-success form-control">
+							</div> </br></br>
+							
+							<div class="col-md-4 col-xs-12 col-lg-4">
+							<input type="button" value="Clear Selection" name="clear" id="clear" class="btn btn-dark form-control">
+							</div></br>
 				</div></br>
+			{{-- ******************************* IN THIS DIV, THE DEVICE STATES FOR MULTI_STATE DEVICES WILL BE DISPLAYED FOR SELECTION**************** --}}
+
+				{{-- ******************************* IN THIS DIV, THE DEVICE STATES SELECTED WILL BE APPENDED **************** --}}
+				<div class="row" id="devStatesContainer">
+					<div class="row devStates" id="devStates"></div>
+				</div>
+
+				{{-- ******************************* IN THIS DIV, THE DEVICE STATES SELECTED WILL BE APPENDED **************** --}}
+					
+			
 
 
 				<div class="form-group">

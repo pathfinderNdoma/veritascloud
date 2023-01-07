@@ -11,8 +11,8 @@
 		<div class="container">
 			
 
-			<div class="card bg-light" style="border-color: #198754">
-				<h5 class="card-header text-center btn-success" style="background-color:#198754; color:white">Device Config</h5>
+			<div class="card" style="border-color: #198754">
+				<h5 class="card-header text-center btn-success" style="background-color:#198754; color:white">Device Configuration</h5>
 				<div class="card-body">
 
 
@@ -23,7 +23,7 @@
 					<div class="col-lg-6 col-md-6 col-xs-12">
 						<label class="" style="color:#198754; font-weight:bolder">Device Name</label>
 						<div class="col">
-						<div class="p-3 border bg-light">{{$device->device_name}}</div>
+						<div class="p-3 border">{{$device->device_name}}</div>
 						  </div>
 						  
 						  
@@ -34,16 +34,16 @@
 						<label style="color:#198754; font-weight:bolder">Device Type</label>
 						<div class="col">
 							@if ($device->device_type=='multi_state')
-							<div class="p-3 border bg-light">Multi State Device</div>	
+							<div class="p-3 border">Multi State Device</div>	
 							@else
-							<div class="p-3 border bg-light">Two State Device</div>
+							<div class="p-3 border ">Two State Device</div>
 							@endif
 							
 						  </div>
 					</div><p></p>
 					<div class="col-lg-6 col-md-6 col-xs-12">
 						<label style="color:#198754; font-weight:bolder">Device ID</label>
-						<div class="p-3 border bg-light">{{$device->deviceID}}</div>					
+						<div class="p-3 border ">{{$device->deviceID}}</div>					
 						  </div>
 
 					</div>
@@ -58,26 +58,26 @@
 								
 								@if ($device->low_state=='active')
 								<div class="col">
-									<div class="p-3 border bg-light">Low State</div>
+									<div class="p-3 bordert">Low State</div>
 								  </div>
 								@endif
 
 								
 								@if ($device->medium_state=='active')
 								<div class="col">
-									<div class="p-3 border bg-light">Medium State</div>
+									<div class="p-3 border ">Medium State</div>
 								  </div>
 								@endif
 
 								@if ($device->high_state=='active')
 								<div class="col">
-									<div class="p-3 border bg-light">High State</div>
+									<div class="p-3 border">High State</div>
 								  </div>
 								@endif
 
 								@if ($device->veryHigh_state=='active')
 								<div class="col">
-									<div class="p-3 border bg-light">Very High State</div>
+									<div class="p-3 border">Very High State</div>
 								  </div>
 								@endif
 								
@@ -90,8 +90,8 @@
 					@endif
 					
 				<div class="form-group">
-					<div class="text-center" style="background-color:#f8f9fa;">
-						<h4 class="card-header"style="background-color:#f8f9fa; font-weight:bolder">Device Image</h4>
+					<div class="text-center">
+						<h4 class="card-header"style="background-color:white; font-weight:bolder">Device Image</h4>
 						
 						<div class="card-body">
 							<div class="align-middle"><img src="/storage/device_images/{{$device->device_image}}" class="align-middle" alt="..." width="200" height="200">
@@ -107,21 +107,25 @@
 							
 			<div class="row">
 
-				<div class="col-lg-2 col-md-2 col-xs-12 text-center"></div>
 
-				<div class="col-lg-4 col-md-4 col-xs-6 text-center">
-					<a id="switch" href="{{route('edit', ['id'=>$device->deviceID])}}" class="btn btn-success form-control">Edit Device Config</a>
+				<div class="col-lg-4 col-md-4 col-xs-4 text-center">
+					<a id="switch" href="{{route('edit', ['id'=>$device->deviceID])}}" class="btn btn-success form-control">Edit Device Configuration</a>
 				</div>
 			</br></br>
 
 				
-			<div class="col-md-4 col-xs-4 col-lg-4">
-				{!! Form::open(['route'=>['delete', 'id'=>$device->deviceID],    'method' => 'POST', 'class'=>'pulll-right'])!!}
-				@csrf
-				{{Form::hidden('_method', 'DELETE')}}
+			<div class="col-md-4 col-xs-6 col-lg-4">
+				<button type="button" class="btn btn-danger form-control" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+					Delete Device
+				  </button>
 				
-				{{Form::submit('Delete', ['class'=>'btn btn-danger form-control'])}}
-			  {!! Form::close()!!}
+			</div>
+		</br></br>
+			<div class="col-md-4 col-xs-6 col-lg-4">
+				<a href="../home" class="btn btn-outline-success form-control" >
+					Back to Dashboard
+				</a>
+				
 			</div>
 						
 			
@@ -133,7 +137,7 @@
 
 	<div class="col-lg-2 col-xs-12">
 	</div>
-
+@include('inc.deletemodal')
  
 </div>
 	

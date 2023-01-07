@@ -1,3 +1,12 @@
+<style>
+	.textboxs{
+		background-color: white;
+		border-top-color:white; 
+		border-right-color:white;
+		 border-left-color:white; 
+		 border-bottom-color:#198754
+	}
+</style>
 @extends('layouts.app')
 @section('content')
 
@@ -11,20 +20,20 @@
 		<div class="container">
 			<form name="form" method="POST" action="{{route('add.store')}}" enctype="multipart/form-data">
 
-			<div class="card bg-light" style="border-color: #198754">
+			<div class="card" style="border-color: #198754">
 				<h5 class="card-header text-center btn-success" style="background-color:#198754; color:white">Register IoT Device</h5>
 				<div class="card-body">
 
 
 					<div class="form-group">
-						<input type="text" name="authorization_code" class="form-control" placeholder="Enter authorization code" 
-						style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
+						<input type="text" name="authorization_code" class="form-control textboxs" placeholder="Enter authorization code"
+						style="background-color:white">
 					</div>
 					<br/>
 
 				<div class="form-group">
 					<input type="text" name="device_name" class="form-control" placeholder="Enter Device Name" 
-					style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
+					style="background-color:white">
 				</div>
 				<br/>
 
@@ -49,8 +58,7 @@
 {{-- ******************************* IN THIS DIV, THE DEVICE STATES FOR MULTI_STATE DEVICES WILL BE DISPLAYED FOR SELECTION**************** --}}
 				<div class="row multi_states d-none" id="multi_states">
 						<div class="col-md-5 col-xs-12 col-lg-5">
-						<select name="device_states" id="device_states" class="form-select" 
-						style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
+						<select name="device_states" id="device_states" class="form-select" style="background-color:white">
 						<option value="">Select Device State</option>
 						<option value="low">Low</option>
 						<option value="medium">Medium</option>
@@ -88,8 +96,19 @@
 				</div>
 				</br>
 	
-	<input type="submit" value="Register Device" name="submit" class="btn btn-outline-success">
 						
+						<div class="row">
+							<div class="col-md-4 col-xs-12 col-lg-4">
+								<input type="submit" value="Register Device" name="submit" class="btn btn-outline-success form-control">
+							</div>
+
+						</br></br>
+							<div class="col-md-4 col-xs-12 col-lg-4">
+								<a href="../home" class="btn btn-success form-control" >
+									Back to Dashboard
+								</a>
+							</div>
+						</div>
 				</div>
 			  </div>
 		</div>

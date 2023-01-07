@@ -123,8 +123,10 @@ class DeviceConfig extends Controller
             //Handle the file upload
             $filenameExtension = $request->file('device_image');
             if($filenameExtension){
-                //Calling the image upload function
-                $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
+            
+            $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);
+            // return $deviceID;
+            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request, $deviceID);
             }
             else{
                 $filenameToStore = $updateDevice->device_image;
@@ -141,9 +143,12 @@ class DeviceConfig extends Controller
           
 
           if($updateDevice->save()){
+            echo '<script>alert("Device configuration updated")</script>';
             $id = $request->id;
             $device = Devices::where('deviceID', $id)->first();
-            return view('pages.deviceConfig')->with('device', $device);
+            return view('pages.deviceConfig')
+            ->with('device', $device)
+            ->with('success', 'Device Configuration updated successully');
           }
           else{
             return redirect('editDeviceConfig')->with('error', 'Device configuration update failed');
@@ -157,7 +162,9 @@ else{
         $filenameExtension = $request->file('device_image');
         if($filenameExtension){
             //Calling the image upload function
-            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request);
+            $deviceID = app('App\Http\Controllers\IncludesController')->generate_ID($request);
+            // return $deviceID;
+            $filenameToStore = app('App\Http\Controllers\IncludesController')->deviceImage($request, $deviceID);
         }
         else{
             $filenameToStore = $updateDevice->device_image;
@@ -173,10 +180,14 @@ else{
 
 //If the device is registered/save
 if($updateDevice->save()){
+            echo '<script>alert("Device configuration updated")</script>';
             $id = $request->id;
             $device = Devices::where('deviceID', $id)->first();
             // return $device;
-            return view('pages.deviceConfig')->with('device', $device);
+            return view('pages.deviceConfig')
+            ->with('success', 'Device Configuration updated successully')   
+            ->with('device', $device);
+            
   }
   else{
     return redirect('editDeviceConfig')->with('error', 'Device configuration update failed');

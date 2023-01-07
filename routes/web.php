@@ -48,6 +48,11 @@ Route::get('/editDeviceConfig', [App\Http\Controllers\DeviceConfig::class, 'edit
 Route::post('', [App\Http\Controllers\DeviceConfig::class, 'update'])->name('config.update');
 Route::delete('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'destroy'])->name('delete');
 
+//Route to Messages controller
+Route::post('index', [App\Http\Controllers\MessagesController::class, 'store'])->name('store.messages');
+
+
+
 
 
 

@@ -60,8 +60,8 @@
                                       <br/>
                                       <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                                 <div class="card-body text-center">
-                                  <p>Device Name:{{$device->device_name}}</p>
-                                  <p>Device Status:Off</p>
+                                  <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
+                                  <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
                                   
                                   <div class="row vstack gap-2 col-md-12 mx-auto">
                                     <div class="col-12">
@@ -70,7 +70,7 @@
                                     </div>
               
                                     <div class="col-12">
-                                      <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                      <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Configuration</a>
                                     </div>
               
                                   </div>
@@ -93,12 +93,12 @@
           <!-- If the device type is multi state starts-->
               @else
                     <div class="col-xs-4">
-                        <div class="card h-100" style="border-color:#198754; background-color:#f8f9fa">
+                        <div class="card h-100" style="border-color:#198754;">
                         <img src="/storage/device_images/{{$device->device_image}}" class="h-100 " alt="..." height="200" width="250">
                         <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                         <div class="card-body text-center">
-                          <p>Device Name:{{$device->device_name}}</p>
-                          <p>Device Status:Off</p>
+                          <p style="color:#0a4e2e; font-weight:bolder">Device Name:{{$device->device_name}}</p>
+                          <p style="color:#0a4e2e; font-weight:bolder">Device Status:Off</p>
                           
 
                           {{-- <div class="row vstack gap-2 col-md-12 mx-auto"> --}}
@@ -141,7 +141,7 @@
                       @if ($device->device_type=='two_state')
                       
                       <div class="col-xs-4">
-                        <div class="card h-100" style="border-color:#198754; background-color:#f8f9fa">
+                        <div class="card h-100" style="border-color:#198754;">
 
                           {{-- <div class="row"> --}}
 
@@ -155,8 +155,8 @@
                           
                           <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                           <div class="card-body text-center">
-                            <p>Device Name:{{$device->device_name}}</p>
-                            <p>Device Status:Off</p>
+                            <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
+                            <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
                             
                             <div class="row vstack gap-2 col-md-12 mx-auto">
                               <div class="col-12">
@@ -165,7 +165,7 @@
                               </div>
         
                               <div class="col-12">
-                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Configuration</a>
                               </div>
         
                             </div>
@@ -177,22 +177,34 @@
                       {{-- If it is not a two state device --}}
                       @else
                       <div class="col-xs-4">
-                        <div class="card h-100" style="border-color:#198754; background-color:#f8f9fa">
+                        <div class="card h-100" style="border-color:#198754;">
                           <img src="/storage/device_images/{{$device->device_image}}" class=" h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
                           <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                           <div class="card-body text-center">
-                            <p>Device Name: {{$device->device_name}}</p>
-                            <p>Device Status: Off</p>
+                            <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
+                            <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
                            
                             <div class="row g-3">
                               <div class="col">
                                 <select class="form-select">
                                   <option>Select Device Level</option>
                                   <option>Off</option>
-                                  <option>Low</option>
-                                  <option>Medium</option>
-                                  <option>High</option>
-                                  <option>Very High</option>
+                                  @if ($device->low_state=='active')
+                                  <option>Low</option>  
+                                  @endif
+
+                                  @if ($device->medium_state=='active')
+                                  <option>Medium</option>  
+                                  @endif
+
+                                  @if ($device->high_state=='active')
+                                  <option>High</option>  
+                                  @endif
+
+                                  @if ($device->veryHigh_state=='active')
+                                  <option>Very High</option>  
+                                  @endif
+                                 
                                 </select>
                               </div>
                               <div class="col">
@@ -200,7 +212,7 @@
                               </div>
 
                               <div class="col-12">
-                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Config</a>
+                                <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Configuration</a>
                               </div>
                             
                             

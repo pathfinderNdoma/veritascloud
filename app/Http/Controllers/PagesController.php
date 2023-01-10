@@ -6,6 +6,8 @@ use App\Models\AuthorizationCode;
 use Illuminate\Http\Request;
 use App\Models\Devices;
 use App\Http\Controllers\IncludesController;
+use App\Models\Monitoring;
+use App\Models\State;
 
 class PagesController extends Controller
 {
@@ -86,8 +88,8 @@ class PagesController extends Controller
             }// ******************Checking if the device ID Exists in the database
          
 
+        //Registering the device
             $device = new Devices;
-
             $device->authorization_code  =  $request->input('authorization_code');
             $device->device_name         =  $request->input('device_name');
             $device->device_type         =  $request->input('device_type');
@@ -104,6 +106,19 @@ class PagesController extends Controller
 
             //If the device is registered/save
            if($device->save()){
+
+            //Registering the device in the monitoring table
+            $monitoring = new Monitoring;
+            $monitoring ->deviceID = $deviceID;
+            $monitoring->deviceStatus = 'Off';
+            $monitoring->save();
+
+            //Registering the device in the device read
+            $states                 =    new State;
+            $states->deviceID       =    $deviceID;
+            $states->state          =   'Off';
+
+            $states->save();
 
             
 

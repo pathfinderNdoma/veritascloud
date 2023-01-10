@@ -185,7 +185,7 @@
         <div class="row justify-content-center">
 
           <div class="col-md-5 col-lg-3 h-100">
-            <img class="h100" src="website_resources/assets/img/control.jpg" alt="About" data-aos="zoom-in" data-aos-delay="100">
+            <img class="h100" src="images/veritasIoT.png" alt="About" data-aos="zoom-in" data-aos-delay="100">
           </div>
 
           <div class="col-md-12 col-lg-8 h-100">

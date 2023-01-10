@@ -92,17 +92,22 @@
 
           <!-- If the device type is multi state starts-->
               @else
-                    <div class="col-xs-4">
-                        <div class="card h-100" style="border-color:#198754;">
-                        <img src="/storage/device_images/{{$device->device_image}}" class="h-100 " alt="..." height="200" width="250">
-                        <hr style="color:#198754; border-color:#198754; font-weight:bolder">
-                        <div class="card-body text-center">
-                          <p style="color:#0a4e2e; font-weight:bolder">Device Name:{{$device->device_name}}</p>
-                          <p style="color:#0a4e2e; font-weight:bolder">Device Status:Off</p>
-                          
+              <div class="container">
+                <div class="row">
+                  
+
+                  <div class="col-md-2 col-xs-12 col-lg-2"></div>
+  
+                  <div class="col-md-8 col-xs-12 col-lg-8">
+                      <div class="card" style="border-color:#198754">
+                        
+                        <div class="card-body">
+                          <img src="/storage/device_images/{{$device->device_image}}" class="h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
+                          <br/>
+                          <hr style="color:#198754; border-color:#198754; font-weight:bolder">
 
                           {{-- <div class="row vstack gap-2 col-md-12 mx-auto"> --}}
-                          <div class="row col-12">
+                          <div class="row">
                             <div class="col-6">
                               <select class="form-select">
                                 <option>Select Device Level</option>
@@ -114,14 +119,31 @@
                               </select>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                               <input type="button" id="switch" value="Apply" class="btn btn-success form-control">
+                            </div>
+                            
+                          </br></br> 
+                          <div class="row">
+                            <div class="col-3">
+                            
                             </div> 
-                                
+
+                            <div class="col-6">
+                              <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Configuration</a>
+                            </div> 
+
+                            <div class="col-3">
+                             
+                            </div> 
+
+                          </div>
+                              
                           </div>
                       
                         </div>
                       </div> 
+                    </div>
             @endif
              @endforeach
      <!--****************************Checking if there is only one device ends***********************  -->

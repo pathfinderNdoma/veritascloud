@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AuthorizationCode;
 use Illuminate\Http\Request;
 use App\Models\Devices;
+use App\Models\Monitoring;
+use App\Models\State;
 
 class DeviceConfig extends Controller
 {
@@ -210,11 +212,16 @@ if($updateDevice->save()){
    public function destroy(Request $request){
     $id = $request->id;
     $device = Devices::where('deviceID', $id)->first();
+    $dev_monitoring = Monitoring::where('deviceID', $id)->first();
+    $dev_state = State::where('deviceID', $id)->first();
+
     //return $device;
     // if(auth()->user()->id !==$post->user_id){
     //     return redirect('/posts')->with('error', 'Unauthorized Page'); 
     //   }
     $device->delete();
+    $dev_monitoring->delete();
+    $dev_state->delete();
     return redirect('home')->with('success', 'Device Deleted');
     //->with('success', 'Device configuration update failed')
     //->with('device', $device);

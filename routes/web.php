@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DeviceControlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Routes for Pages Controller
 Route::get('home', [App\Http\Controllers\PagesController::class, 'dashboard'])->name('dashboard');
 Route::get('/add_device', [App\Http\Controllers\PagesController::class, 'add_device'])->name('add_device');
-Route::get('pages.getDevice', [App\Http\Controllers\PagesController::class, 'getDeviceState'])->name("pages.getDevice");
+
+//Route::get('getDevice', [App\Http\Controllers\PagesController::class, 'updateState'])->name("getDevice");
+
 Route::post('/add_device/', [App\Http\Controllers\PagesController::class, 'store'])->name("add.store");
 Route::resource("posts", PagesController::class);
 
@@ -50,6 +53,16 @@ Route::delete('/deviceConfig', [App\Http\Controllers\DeviceConfig::class, 'destr
 
 //Route to Messages controller
 Route::post('index', [App\Http\Controllers\MessagesController::class, 'store'])->name('store.messages');
+
+
+//Route for DeviceControllers
+//Route::get('pages.getDevice', [App\Http\Controllers\PagesController::class, 'getDeviceState'])->name("pages.getDevice");
+Route::get('updatetwoState', [App\Http\Controllers\DeviceControlController::class, 'updatetwoState'])->name("updatetwoState");
+
+
+
+//Route to monitor device current status
+Route::get('monitor', [App\Http\Controllers\DeviceControlController::class, 'monitor'])->name("monitor");
 
 
 

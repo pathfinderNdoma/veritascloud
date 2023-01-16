@@ -190,6 +190,20 @@ class PagesController extends Controller
 
            //If the device is registered
            if($device->save()){
+            //Registering the device in the monitoring table
+            $monitoring = new Monitoring;
+            $monitoring ->deviceID = $deviceID;
+            $monitoring->deviceStatus = 'Off';
+            $monitoring->save();
+
+            //Registering the device in the device read
+            $states                 =    new State;
+            $states->deviceID       =    $deviceID;
+            $states->state          =   'Off';
+
+            $states->save();
+
+            //Then redirect after saving into all the tables
             return redirect('add_device')->with('success', 'Device Registered Successfully');
            }
            else{
@@ -272,42 +286,17 @@ class PagesController extends Controller
 
 
 
-    //Return the device state
-    public function getDeviceState(Request $request)
-    {
-        $state =$request->id;
-        
-            if($state=='multi_state'){
-                
-                $html = '
-                <div class="col-md-5 col-xs-12 col-lg-5">
-                <select name="device_states" id="device_states" class="form-select" 
-                style="border-top-color:white; border-right-color:white; border-left-color:white; border-bottom-color:#198754">
-                <option value="">Select Device State</option>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="veryHigh">Very High</option>
-                </select>
-                </div>	
-                <br/></br>
+    // //Return the device state
+    // public function updateState(Request $request)
+    // {
+    //    //$state =$request->id;
+    //    $html ='<p></p>';
 
-                    <div class="col-md-3 col-xs-6 col-lg-3">
-					<input type="button" value="Add Device State" name="add" id="add" class="btn btn-success">
-					</div>
-                    
-                    <div class="col-md-4 col-xs-6 col-lg-4">
-					<input type="button" value="Clear Selection" name="clear" id="clear" class="btn btn-success">
-					</div></br>
-                    ';
-
-            }
-        
-        $response["data"] = $html;
-        //$response = json_encode ($html);
-        //return response($response);
-        return response()->json($response);
-    }
+    //    $response["data"] = $html;
+    //    //$response = json_encode ($html);
+    //    //return response($response);
+    //    return response()->json($response);
+    // }
 
 
 //Dashboard method
@@ -318,4 +307,8 @@ class PagesController extends Controller
             return view('home')->with('devices', $devices);
         }
     
+
+
 }
+
+

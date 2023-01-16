@@ -115,6 +115,7 @@
 	</div>
 
 	<div class="col-lg-2 col-xs-12">
+		
 	</div>
 @csrf
 </form>
@@ -125,3 +126,5 @@
 <script src="{{ asset('jquery/jquery.js') }}"></script>
 @section('page-script')
 @include('inc.deviceStates')
+
+{{-- <script src="{{ asset('js/monitor_control.js') }}"></script> --}}

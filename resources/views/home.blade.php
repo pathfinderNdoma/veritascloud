@@ -42,9 +42,13 @@
     @if(count($devices)==1)
 
               <!-- Checking if the device type is two state device starts -->
-              @foreach ($devices as $device)
-                  
               
+              @foreach ($devices as $device)
+               
+              {{--HIDDEN FIELD: DEVICE TYPE --}}
+              <input type="button" id="d_type" value="{{$device->device_type}}" >
+              {{--HIDDEN FIELD: DEVICE TYPE --}}
+
                             @if ($device->device_type=='two_state')
                             <div class="container">
                             <div class="row">
@@ -54,18 +58,29 @@
               
                               <div class="col-md-8 col-xs-12 col-lg-8">
                                   <div class="card" style="border-color:#198754">
+
+                                    {{-- HIDDEN FIELD: DEVICE ID--}}
+                                    <input type="button" id="deviceID_two" value="{{$device->deviceID}}" class=" d-none">
                                     
+                                    {{-- HIDDEN FIELD: DEVICE ID--}}
+
+
                                     <div class="card-body">
                                       <img src="/storage/device_images/{{$device->device_image}}" class="h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
                                       <br/>
                                       <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                                 <div class="card-body text-center">
                                   <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
-                                  <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
+                                  
+                                  <p id="twoState_status"</p>
+                                  
                                   
                                   <div class="row vstack gap-2 col-md-12 mx-auto">
                                     <div class="col-12">
-                                      <input type="button" id="switch" value="Turn Device On" class="btn btn-success form-control">
+                                      <input type="button" name="two_state" id="two_state" value="Turn Device On" 
+                                      class="btn btn-success form-control" onclick="call()">
+                                      {{-- <input type="button" id="button" onclick="testfunc()" value="Test"> --}}
+                                   
                                     
                                     </div>
               
@@ -100,22 +115,39 @@
   
                   <div class="col-md-8 col-xs-12 col-lg-8">
                       <div class="card" style="border-color:#198754">
-                        
-                        <div class="card-body">
+
+                        {{-- HIDDEN FIELD: DEVICE ID--}}
+                        <input type="button" id="deviceID_multi" value="{{$device->deviceID}}" class=" d-none">
+                                    
+                        {{-- HIDDEN FIELD: DEVICE ID--}}
+
+                        <div class="card-body text-center">
                           <img src="/storage/device_images/{{$device->device_image}}" class="h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
                           <br/>
                           <hr style="color:#198754; border-color:#198754; font-weight:bolder">
-
+                          <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
+                          <p id="multiState_status"</p>
                           {{-- <div class="row vstack gap-2 col-md-12 mx-auto"> --}}
                           <div class="row">
                             <div class="col-6">
-                              <select class="form-select">
+                              <select class="form-select" id="dev_level">
                                 <option>Select Device Level</option>
                                 <option>Off</option>
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                                <option>Very High</option>
+                                @if ($device->low_state=='active')
+                                  <option>Low</option>  
+                                  @endif
+
+                                  @if ($device->medium_state=='active')
+                                  <option>Medium</option>  
+                                  @endif
+
+                                  @if ($device->high_state=='active')
+                                  <option>High</option>  
+                                  @endif
+
+                                  @if ($device->veryHigh_state=='active')
+                                  <option>Very High</option>  
+                                  @endif
                               </select>
                             </div>
 
@@ -133,7 +165,7 @@
                               <a id="switch" href="{{route('deviceConfig', ['id'=>$device->deviceID])}}" class="btn btn-outline-success form-control">Device Configuration</a>
                             </div> 
 
-                            <div class="col-3">
+                            <div class="col-3x  ">
                              
                             </div> 
 
@@ -154,14 +186,23 @@
   <!--****************************Checking if there is  more than one device***********************  -->
     @if(count($devices)>1)
 
+              {{--HIDDEN FIELD: COUNT THE NUMBER OF DEVICES --}}
+             
+              <input type="button" id="device_count" value="{{count($devices)}}" >
+              {{--HIDDEN FIELD: COUNT THE NUMBER OF DEVICES --}}
     
     {{-- Looping through the array --}}
     <div class="row row-cols-1 row-cols-md-3 g-4 ">
+      {{$count=1}}
     @foreach ($devices as $device)
+
+   
     
                       {{-- Checking if the device for each item is a two state device --}}
                       @if ($device->device_type=='two_state')
-                      
+               @for ($i = 0; $i < $count; $i++)
+                   
+                     
                       <div class="col-xs-4">
                         <div class="card h-100" style="border-color:#198754;">
 
@@ -177,12 +218,22 @@
                           
                           <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                           <div class="card-body text-center">
+
+
+                    {{--HIDDEN FIELD: DEVICE TYPE --}}
+                          
+                           <input type="button" id="d_type{{$count}}" value="{{$device->device_type.$count}}" >
+                           <input type="button" id="twoStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
+                           
+                   {{--HIDDEN FIELD: DEVICE TYPE --}}
+
+
                             <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
                             <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
                             
                             <div class="row vstack gap-2 col-md-12 mx-auto">
                               <div class="col-12">
-                                <input type="button" id="switch" value="Turn Device On" class="btn btn-success form-control">
+                                <input type="button" id="on_off" value="Turn Device On" class="btn btn-success form-control">
                               
                               </div>
         
@@ -195,17 +246,32 @@
                           </div>
                         </div>
                       </div>
-                      
-                      {{-- If it is not a two state device --}}
+                   @endfor        
+      {{-- ***************************************************************************************************** --}}
+                      {{-- IF THE DEVICE IS A MULTI STATE DEVICE--}}
+
+
+
                       @else
                       <div class="col-xs-4">
                         <div class="card h-100" style="border-color:#198754;">
                           <img src="/storage/device_images/{{$device->device_image}}" class=" h-100 img-fluid rounded mx-auto d-block" alt="Device Image" height="200" width="250">
                           <hr style="color:#198754; border-color:#198754; font-weight:bolder">
                           <div class="card-body text-center">
+
+
+              {{--HIDDEN FIELD: DEVICE TYPE --}}
+                    
+              <input type="button" id="d_type{{$count}}" value="{{$device->device_type. $count}}" >
+              <input type="button" id="multiStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
+                   
+              {{--HIDDEN FIELD: DEVICE TYPE --}}
+
+
+
                             <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
-                            <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
-                           
+                            <p id="multiState_status{{$count}}" style="color:#0a4e2e; font-weight:bolder"></p>
+                           {{$count}}
                             <div class="row g-3">
                               <div class="col">
                                 <select class="form-select">
@@ -250,21 +316,19 @@
                       </div>
                           
                       @endif
-                      
+          {{ $count++ }}            
     @endforeach
+   
   </div>
-    
+  @csrf 
 </div>
-          
+ @endif
 
-
-             
-
-    
-    
-
-
-    
-  
-  @endif
 @endsection
+<script src="{{ asset('jquery/jquery.js') }}"></script>
+@section('page-script')
+@include('inc.control')
+@include('inc.monitor')
+
+
+

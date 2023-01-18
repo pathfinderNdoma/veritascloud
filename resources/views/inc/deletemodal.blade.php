@@ -14,7 +14,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-          {!! Form::open(['route'=>['delete', 'id'=>$device->deviceID],    'method' => 'POST', 'class'=>'pulll-right'])!!}
+          {!! Form::open(['route'=>['delete', 'id'=>$device->deviceID, 'imageName'=>$device->device_image],    'method' => 'POST', 'class'=>'pulll-right'])!!}
 				@csrf
 				{{Form::hidden('_method', 'DELETE')}}
 				

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\AuthorizationCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Devices;
 use App\Models\Monitoring;
 use App\Models\State;
+use Illuminate\Support\Facades\Storage;
 
 class DeviceConfig extends Controller
 {
@@ -218,19 +220,30 @@ if($updateDevice->save()){
      */
    public function destroy(Request $request){
     $id = $request->id;
+    $filename =$request->imageName;
+    $filePath = 'symlink/' . $filename;
+
+
+
     $device = Devices::where('deviceID', $id)->first();
     $dev_monitoring = Monitoring::where('deviceID', $id)->first();
     $dev_state = State::where('deviceID', $id)->first();
 
-    //return $device;
-    // if(auth()->user()->id !==$post->user_id){
-    //     return redirect('/posts')->with('error', 'Unauthorized Page'); 
-    //   }
-    $device->delete();
-    $dev_monitoring->delete();
-    $dev_state->delete();
-    return redirect('home')->with('success', 'Device Deleted');
-    //->with('success', 'Device configuration update failed')
-    //->with('device', $device);
+   if( $device->delete() && $dev_monitoring->delete() && $dev_state->delete()){
+
+    if(Storage::disk('public')->exists($filePath)){
+        Storage::disk('public')->delete($filePath);
+        return redirect('home')->with('success', 'Device Deleted');
+    }
+    else{
+    return redirect('home')->with('error', 'Error Encountered');
+    }
+      
    }
-}
+   else{
+    return redirect('home')->with('error', 'Error Encountered: Device Image was not deleted from the public folder');
+   } //End of delete if statement
+
+
+   }
+} //End of class

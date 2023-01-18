@@ -46,7 +46,7 @@
               @foreach ($devices as $device)
                
               {{--HIDDEN FIELD: DEVICE TYPE --}}
-              <input type="button" id="d_type" value="{{$device->device_type}}" >
+              <input class="d-none" type="button" id="d_type" value="{{$device->device_type}}" >
               {{--HIDDEN FIELD: DEVICE TYPE --}}
 
                             @if ($device->device_type=='two_state')

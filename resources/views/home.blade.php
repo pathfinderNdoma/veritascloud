@@ -130,29 +130,29 @@
                           {{-- <div class="row vstack gap-2 col-md-12 mx-auto"> --}}
                           <div class="row">
                             <div class="col-6">
-                              <select class="form-select" id="dev_level">
+                              <select class="form-select" id="multiDeviceLevel">
                                 <option>Select Device Level</option>
-                                <option>Off</option>
+                                <option value="off">Off</option>
                                 @if ($device->low_state=='active')
-                                  <option>Low</option>  
+                                  <option value="low">Low</option>  
                                   @endif
 
                                   @if ($device->medium_state=='active')
-                                  <option>Medium</option>  
+                                  <option value="medium">Medium</option>  
                                   @endif
 
                                   @if ($device->high_state=='active')
-                                  <option>High</option>  
+                                  <option value="high">High</option>  
                                   @endif
 
                                   @if ($device->veryHigh_state=='active')
-                                  <option>Very High</option>  
+                                  <option value="very_high">Very High</option>  
                                   @endif
                               </select>
                             </div>
 
                             <div class="col-6">
-                              <input type="button" id="switch" value="Apply" class="btn btn-success form-control">
+                              <input type="button" id="multiChangeState" value="Apply" class="btn btn-success form-control">
                             </div>
                             
                           </br></br> 
@@ -193,14 +193,14 @@
     
     {{-- Looping through the array --}}
     <div class="row row-cols-1 row-cols-md-3 g-4 ">
-      {{$count=1}}
+      <p class="d-none">{{$count=1}}</p>
     @foreach ($devices as $device)
 
    
     
                       {{-- Checking if the device for each item is a two state device --}}
                       @if ($device->device_type=='two_state')
-               @for ($i = 0; $i < $count; $i++)
+            
                    
                      
                       <div class="col-xs-4">
@@ -222,18 +222,18 @@
 
                     {{--HIDDEN FIELD: DEVICE TYPE --}}
                           
-                           <input type="button" id="d_type{{$count}}" value="{{$device->device_type.$count}}" >
+                           <input type="button" id="d_type{{$count}}" value="{{$device->device_type}}" >
                            <input type="button" id="twoStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
                            
                    {{--HIDDEN FIELD: DEVICE TYPE --}}
 
 
                             <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
-                            <p style="color:#0a4e2e; font-weight:bolder">Device Status: Off</p>
+                            <p id="twoState_status{{$count}}" style="color:#0a4e2e; font-weight:bolder">Device Status:</p>
                             
                             <div class="row vstack gap-2 col-md-12 mx-auto">
                               <div class="col-12">
-                                <input type="button" id="on_off" value="Turn Device On" class="btn btn-success form-control">
+                                <input type="button" id="two_state{{$count}}" value="Turn Device On" class="btn btn-success form-control">
                               
                               </div>
         
@@ -246,7 +246,7 @@
                           </div>
                         </div>
                       </div>
-                   @endfor        
+                           
       {{-- ***************************************************************************************************** --}}
                       {{-- IF THE DEVICE IS A MULTI STATE DEVICE--}}
 
@@ -262,7 +262,7 @@
 
               {{--HIDDEN FIELD: DEVICE TYPE --}}
                     
-              <input type="button" id="d_type{{$count}}" value="{{$device->device_type. $count}}" >
+              <input type="button" id="d_type{{$count}}" value="{{$device->device_type}}" >
               <input type="button" id="multiStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
                    
               {{--HIDDEN FIELD: DEVICE TYPE --}}
@@ -274,29 +274,29 @@
                            {{$count}}
                             <div class="row g-3">
                               <div class="col">
-                                <select class="form-select">
+                                <select class="form-select" id="multiState_level{{$count}}">
                                   <option>Select Device Level</option>
-                                  <option>Off</option>
+                                  <option value="off">Off</option>
                                   @if ($device->low_state=='active')
-                                  <option>Low</option>  
-                                  @endif
-
-                                  @if ($device->medium_state=='active')
-                                  <option>Medium</option>  
-                                  @endif
-
-                                  @if ($device->high_state=='active')
-                                  <option>High</option>  
-                                  @endif
-
-                                  @if ($device->veryHigh_state=='active')
-                                  <option>Very High</option>  
+                                    <option value="low">Low</option>  
+                                    @endif
+  
+                                    @if ($device->medium_state=='active')
+                                    <option value="medium">Medium</option>  
+                                    @endif
+  
+                                    @if ($device->high_state=='active')
+                                    <option value="high">High</option>  
+                                    @endif
+  
+                                    @if ($device->veryHigh_state=='active')
+                                    <option value="very_high">Very High</option>  
                                   @endif
                                  
                                 </select>
                               </div>
                               <div class="col">
-                                <input type="button" class="form-control btn btn-success" value="Apply" aria-label="apply">
+                                <input type="button" id="apply_level{{$count}}" class="form-control btn btn-success" value="Apply" aria-label="apply">
                               </div>
 
                               <div class="col-12">
@@ -316,7 +316,7 @@
                       </div>
                           
                       @endif
-          {{ $count++ }}            
+          <p class="d-none">{{ $count++ }}</p>            
     @endforeach
    
   </div>

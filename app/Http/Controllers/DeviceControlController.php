@@ -45,6 +45,26 @@ class DeviceControlController extends Controller
 
                
    }
+
+
+
+   public function updateMultiState(Request $request)
+   {
+                $multi_state                   =       $request->state;
+                $device_id                     =       $request->id;
+
+                /* *********IF THE DEVICE IS OFF********  */
+               
+                    $updateState             =       State::where('deviceID', $device_id)->first();
+                    $updateState->state      =       $multi_state; 
+                    if($updateState->save()){
+                        $response["data"]        =       'command sent';//'Device runing on ';
+                        return response()->json($response);
+                    }
+    
+                   
+           
+     }
     
 
 

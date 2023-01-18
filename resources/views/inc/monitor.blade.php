@@ -71,51 +71,69 @@ $(document).ready(function () {
 /* ************************************** \ IF THERE ARE MORE THAN ONE ONE DEVICE IN THE DATABASE*************** */
 $(document).ready(function () {
     let device_count = $('#device_count').val();
-    for (let i = 0; i < device_count; i++) {
+    for (let i = 1; i <= device_count; i++) {
 
         //Get the Device type
-        let device_type1 = $('#d_type'+i).val()
-        //let device_type2 = $('#twoState_'+i).val()
-        //alert(device_type1)
-        //****************************IF the device type is multi_state ****************************
-        if(device_type1=='multi_state'){
-
-            let deviceID = $('#multiStatedeviceID'+i).val()
-            //alert(deviceID)
-            
-            $('#multiState_'+i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device is Offline</p>');
+        let device_type = $('#d_type'+i).val()
+        
+        //If it is a two_state device
+//**********************************************************************************************************************
+        if(device_type=='two_state'){
+            let device_ID = $('#twoStatedeviceID'+i).val()
             const url = "{{route('monitor')}}";
                     $.ajax({
                     url: url,
                     type: 'GET',
-                    data:{id:deviceID},
+                    data:{id:device_ID},
                     cache:false,
                     success: function(response){
-                    //alert(deviceID)
-                    //alert(response.state)
-
+                   
                     if(response.data>22){
-                        $("#multiState_status"+$i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device is Offline</p>');
+                        $("#twoState_status"+i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device is Offline</p>');
                     }
 
                     else{
-                        $("#multiState_status"+$i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device Online (<span>Device is currently '+response.state+'</span>)</p>');   
+                            $("#twoState_status"+i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device Online (<span>Device is currently '+response.state+'</span>)</p>');   
                     }
 
 
-                    
-                        }
+                    }                         
                     });
-           
-        } //**************************************End of if the device is multi_state
+        } 
+//**********************************************************************************************************************
+        // End of If it is a two_state device
 
-        //If the device is two_state
-        if(device_type2=='two_state'){
-        let deviceID = $('#twoStatedeviceID'+i).val()
-        //alert(i) 
-        } //End of if the device is two_state
-    
+        //If it is a multi_state device
+//**********************************************************************************************************************
+        
+        else if(device_type =='multi_state'){
 
+                     let device_ID = $('#multiStatedeviceID'+i).val()
+                    const url = "{{route('monitor')}}";
+                    //alert(url)
+                    //alert(url)
+                    $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data:{id:device_ID},
+                    cache:false,
+                    success: function(response){
+                   
+                    if(response.data>22){
+                        $("#multiState_status"+i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device is Offline</p>');
+                    }
+
+                    else{
+                            $("#multiState_status"+i).html('<p style="color:#0a4e2e; font-weight:bolder" class="multiState_status">Device Status: Device Online (<span>Device is currently '+response.state+'</span>)</p>');   
+                    }
+
+
+                    }                         
+                    });
+            
+        }
+//**********************************************************************************************************************
+   // End of If it is a multi_state device     
 
     }
        

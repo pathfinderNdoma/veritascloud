@@ -58,6 +58,7 @@ Route::post('index', [App\Http\Controllers\MessagesController::class, 'store'])-
 //Route for DeviceControllers
 //Route::get('pages.getDevice', [App\Http\Controllers\PagesController::class, 'getDeviceState'])->name("pages.getDevice");
 Route::get('updatetwoState', [App\Http\Controllers\DeviceControlController::class, 'updatetwoState'])->name("updatetwoState");
+Route::get('updateMultiState', [App\Http\Controllers\DeviceControlController::class, 'updateMultiState'])->name("updateMultiState");
 
 
 

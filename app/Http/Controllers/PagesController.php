@@ -8,6 +8,7 @@ use App\Models\Devices;
 use App\Http\Controllers\IncludesController;
 use App\Models\Monitoring;
 use App\Models\State;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -16,6 +17,13 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
+
+
     public function index()
     {
         return view('index');

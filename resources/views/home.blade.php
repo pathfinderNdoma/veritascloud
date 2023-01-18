@@ -188,7 +188,7 @@
 
               {{--HIDDEN FIELD: COUNT THE NUMBER OF DEVICES --}}
              
-              <input type="button" id="device_count" value="{{count($devices)}}" >
+              <input type="button" class="d-none" id="device_count" value="{{count($devices)}}" >
               {{--HIDDEN FIELD: COUNT THE NUMBER OF DEVICES --}}
     
     {{-- Looping through the array --}}
@@ -222,8 +222,8 @@
 
                     {{--HIDDEN FIELD: DEVICE TYPE --}}
                           
-                           <input type="button" id="d_type{{$count}}" value="{{$device->device_type}}" >
-                           <input type="button" id="twoStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
+                           <input type="button" class="d-none" id="d_type{{$count}}" value="{{$device->device_type}}" >
+                           <input type="button" class="d-none" id="twoStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
                            
                    {{--HIDDEN FIELD: DEVICE TYPE --}}
 
@@ -262,8 +262,8 @@
 
               {{--HIDDEN FIELD: DEVICE TYPE --}}
                     
-              <input type="button" id="d_type{{$count}}" value="{{$device->device_type}}" >
-              <input type="button" id="multiStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
+              <input type="button" class="d-none" id="d_type{{$count}}" value="{{$device->device_type}}" >
+              <input type="button" class="d-none" id="multiStatedeviceID{{$count}}" value="{{$device->deviceID}}" >
                    
               {{--HIDDEN FIELD: DEVICE TYPE --}}
 
@@ -271,7 +271,7 @@
 
                             <p style="color:#0a4e2e; font-weight:bolder">Device Name: {{$device->device_name}}</p>
                             <p id="multiState_status{{$count}}" style="color:#0a4e2e; font-weight:bolder"></p>
-                           {{$count}}
+                          
                             <div class="row g-3">
                               <div class="col">
                                 <select class="form-select" id="multiState_level{{$count}}">

@@ -110,7 +110,8 @@
     
                                     else if(response.data=='Turn Device Off'){
                                         $('#two_state'+j).val(response.data)
-                                        $('#two_state'+j).css('background-color', 'red');   
+                                        $('#two_state'+j).css('background-color', 'red');
+                                        $('#two_state'+j).css('color', 'white');   
                                     }
                                     
                                     

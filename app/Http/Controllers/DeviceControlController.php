@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\DeviceControl;
 use App\Models\State;
 use App\Models\Monitoring;
+use Illuminate\Support\Facades\Auth;
+
 
 class DeviceControlController extends Controller
 {
@@ -14,9 +16,19 @@ class DeviceControlController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+ /**
+     * The middleware to be applied to this controller.
+     *
+     * @var array
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
    public function updatetwoState(Request $request)
    {
+    $this->middleware('auth');
                 $state                   =       $request->state;
                 $id                      =       $request->id;
 
@@ -50,6 +62,7 @@ class DeviceControlController extends Controller
 
    public function updateMultiState(Request $request)
    {
+    $this->middleware('auth');
                 $multi_state                   =       $request->state;
                 $device_id                     =       $request->id;
 
@@ -71,6 +84,7 @@ class DeviceControlController extends Controller
   
     public function monitor(Request $request)
    {
+    $this->middleware('auth');
               
                 $id                      =       $request->id;
                 $device                  =       Monitoring::where('deviceID', $id)->first(); 
